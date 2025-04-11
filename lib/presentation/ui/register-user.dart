@@ -47,7 +47,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                         });
                       },
                       initialSelection: 'PS',
-                      favorite: const ['PS'],
+                      favorite: const ['IL','PS'],
                       showCountryOnly: false,
                       showOnlyCountryWhenClosed: false,
                       alignLeft: false,
