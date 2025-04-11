@@ -18,13 +18,14 @@ class RoundedCornerButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(40.0),
         ),
       ),
       onPressed: onPressed,
       child: Text(
         text,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white,
+        fontSize: 18),
       ),
     );
   }

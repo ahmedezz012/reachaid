@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reachaid/presentation/ui/select-user-type.dart';
 
 import '../components/rounded-corner-button.dart';
 
@@ -18,19 +19,24 @@ class SplashScreen extends StatelessWidget {
               'assets/images/reach-aid.jpg',
             ),
           ),
-          const Spacer(), // Pushes the button to the bottom
           Padding(
-            padding: const EdgeInsets.all(20.0), // Add some padding around the button
-            child: SizedBox( // To control the button's width
-              width: double.infinity, // Makes the button take the full width
-              child: RoundedCornerButton(
-                text: 'تسجيل الدخول',
-                color: Colors.red,
-                onPressed: () {
-                  // Handle button press
-                },
-              )
-            ),
+            padding: const EdgeInsets.fromLTRB(50, 70, 50, 0),
+            // Add some padding around the button
+            child: SizedBox(
+                // To control the button's width
+                width: double.infinity, // Makes the button take the full width
+                height: 60,
+                child: RoundedCornerButton(
+                  text: 'تسجيل الدخول',
+                  color: Colors.red,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SelectUserType()),
+                    );
+                  },
+                )),
           ),
         ],
       ),
