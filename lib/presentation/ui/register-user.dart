@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-
+import 'bottom-nav-screen.dart';
 import '../components/rounded-corner-button.dart';
 
 class RegisterUserScreen extends StatefulWidget {
@@ -47,7 +47,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                         });
                       },
                       initialSelection: 'PS',
-                      favorite: const ['IL','PS'],
+                      favorite: const ['IL', 'PS'],
                       showCountryOnly: false,
                       showOnlyCountryWhenClosed: false,
                       alignLeft: false,
@@ -87,6 +87,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                     return null;
                   },
                   onSaved: (value) => _password = value,
+                  onChanged: (value) => _password = value,
                 ),
                 const SizedBox(height: 16),
 
@@ -201,6 +202,12 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BottomNavScreen()),
+                            (Route<dynamic> route) => false,
+                          );
                           // Process the registration data
                           print('Mobile Number: $_countryCode $_mobileNumber');
                           print('Password: $_password');
