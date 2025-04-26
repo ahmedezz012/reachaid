@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reachaid/presentation/components/rounded-corner-button.dart';
 import 'package:reachaid/presentation/ui/register-user.dart';
+import 'package:reachaid/presentation/ui/register-rescuer.dart';
 
 class SelectUserType extends StatelessWidget {
   const SelectUserType({super.key});
@@ -39,6 +40,10 @@ class SelectUserType extends StatelessWidget {
                   text: 'اسعاف و انقاذ',
                   color: Colors.red,
                   onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const RegisterRescuer()),
+                    );
                     // Handle button press
                   },
                 )),

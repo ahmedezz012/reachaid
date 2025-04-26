@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:reachaid/user-type.dart';
-import 'bottom-nav-screen.dart';
 import '../components/rounded-corner-button.dart';
-
-class RegisterUserScreen extends StatefulWidget {
-  const RegisterUserScreen({super.key});
+import 'bottom-nav-screen.dart';
+class RegisterRescuer extends StatefulWidget {
+  const RegisterRescuer({super.key});
 
   @override
-  State<RegisterUserScreen> createState() => _RegisterUserScreenState();
+  State<RegisterRescuer> createState() => _RegisterRescuerState();
 }
 
-class _RegisterUserScreenState extends State<RegisterUserScreen> {
+class _RegisterRescuerState extends State<RegisterRescuer> {
   final _formKey = GlobalKey<FormState>();
   String? _mobileNumber;
   String? _password;
   String? _confirmPassword;
-  String? _userName;
+  String? _rescuerName;
   int? _userAge;
-  String? _gender;
-  String? _medicalHistory;
+  String? _rescuerPlace;
+  String? _rescuerGovernorate;
   String _countryCode = '+97';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('تسجيل'),
+        title: const Text('تسجيل مسعف'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -38,7 +36,13 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // 1. Mobile Number
+                Opacity(
+                  opacity: 0.5,
+                  child: Container(
+                    child: Image.asset('assets/images/rescue.jpeg',
+                      fit: BoxFit.fitWidth,),
+                  ),
+                ),
                 Row(
                   children: [
                     CountryCodePicker(
@@ -115,85 +119,50 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                 // 4. User Name
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'اسم المستخدم',
+                    labelText: 'اسم المسعف',
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'يجب ادخال اسم المستخدم';
+                      return 'يجب ادخال اسم المسعف';
                     }
                     return null;
                   },
-                  onSaved: (value) => _userName = value,
+                  onSaved: (value) => _rescuerName = value,
                 ),
                 const SizedBox(height: 16),
 
-                // 5. User Age
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'عمر المستخدم',
+                    labelText: ' مكان العمل',
                     border: OutlineInputBorder(),
                   ),
-                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'يجب ادخال عمر المستخدم';
-                    }
-                    if (int.tryParse(value) == null) {
-                      return 'ادخل عمر صحيح';
+                      return 'يجب ادخال مكان العمل';
                     }
                     return null;
                   },
-                  onSaved: (value) => _userAge = int.tryParse(value!),
+                  onSaved: (value) => _rescuerPlace = value,
                 ),
                 const SizedBox(height: 16),
-
-                // 6. Gender (Radio Buttons)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('الجنس'),
-                    Row(
-                      children: <Widget>[
-                        Radio<String>(
-                          value: 'male',
-                          groupValue: _gender,
-                          onChanged: (value) {
-                            setState(() {
-                              _gender = value;
-                            });
-                          },
-                        ),
-                        const Text('ذكر'),
-                        Radio<String>(
-                          value: 'female',
-                          groupValue: _gender,
-                          onChanged: (value) {
-                            setState(() {
-                              _gender = value;
-                            });
-                          },
-                        ),
-                        const Text('انثي'),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-
-                // 7. Medical History (Multiline)
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'مشاكل صحية يعاني منها المستخدم',
+                    labelText: 'محافظة العمل',
                     border: OutlineInputBorder(),
                   ),
-                  maxLines: 5,
-                  keyboardType: TextInputType.multiline,
-                  onSaved: (value) => _medicalHistory = value,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'يجب ادخال محافظة العمل';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) => _rescuerGovernorate = value,
                 ),
+
                 const SizedBox(height: 24),
                 SizedBox(
-                    // To control the button's width
+                  // To control the button's width
                     width: double.infinity,
                     height: 60,
                     // Submit Button
@@ -206,16 +175,10 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const BottomNavScreen(userType: UserType.User,)),
-                            (Route<dynamic> route) => false,
+                                builder: (context) => BottomNavScreen(userType: UserType.Rescuer)),
+                                (Route<dynamic> route) => false,
                           );
                           // Process the registration data
-                          print('Mobile Number: $_countryCode $_mobileNumber');
-                          print('Password: $_password');
-                          print('User Name: $_userName');
-                          print('User Age: $_userAge');
-                          print('Gender: $_gender');
-                          print('Medical History: $_medicalHistory');
                           // You would typically send this data to your backend
                         }
                       },
