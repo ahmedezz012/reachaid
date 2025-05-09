@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:reachaid/user-type.dart';
+import '../../data/shared-preferences/shared-preferences-helper.dart';
 import '../components/rounded-corner-button.dart';
 import 'bottom-nav-screen.dart';
 class RegisterRescuer extends StatefulWidget {
@@ -172,6 +173,8 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+                          SharedPreferencesHelper.saveBool(SharedPreferencesHelper.USER_LOGGED_IN, true);
+                          SharedPreferencesHelper.saveInt(SharedPreferencesHelper.USER_TYPE, UserType.Rescuer.value);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(

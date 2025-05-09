@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:reachaid/data/shared-preferences/shared-preferences-helper.dart';
 import 'package:reachaid/user-type.dart';
 import 'bottom-nav-screen.dart';
 import '../components/rounded-corner-button.dart';
@@ -203,6 +204,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+                          SharedPreferencesHelper.saveBool(SharedPreferencesHelper.USER_LOGGED_IN, true);
+                          SharedPreferencesHelper.saveInt(SharedPreferencesHelper.USER_TYPE, UserType.User.value);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(

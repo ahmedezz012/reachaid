@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reachaid/presentation/ui/health_input_screen.dart';
 import 'package:reachaid/victim-health-state.dart';
 import '../components/rounded-corner-button.dart';
 import 'package:reachaid/victim-gender.dart';
@@ -108,7 +109,7 @@ class _RegisterVictimState extends State<RegisterVictim> {
                             });
                           },
                         ),
-                        const Text('عير محدد'),
+                        const Text('غير محدد'),
                       ],
                     ),
                   ],
@@ -167,9 +168,11 @@ class _RegisterVictimState extends State<RegisterVictim> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const HealthInputScreen()),
+                          );
                           // Process the registration data
-                          // You would typically send this data to your backend
                         }
                       },
                     ))
