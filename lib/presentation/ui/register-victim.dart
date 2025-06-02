@@ -174,11 +174,7 @@ class _RegisterVictimState extends State<RegisterVictim> {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           if (_healthState == VictimHealthState.Dead) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => VictimStatusScreen()),
-                            );
+                            _showAlertDialog(context);
                           } else {
                             Navigator.push(
                               context,
@@ -196,6 +192,27 @@ class _RegisterVictimState extends State<RegisterVictim> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: Text(
+            'تم',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
     );
   }
 }
