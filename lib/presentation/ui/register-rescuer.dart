@@ -5,6 +5,7 @@ import 'package:reachaid/user-type.dart';
 import '../../data/shared-preferences/shared-preferences-helper.dart';
 import '../components/rounded-corner-button.dart';
 import 'bottom-nav-screen.dart';
+
 class RegisterRescuer extends StatefulWidget {
   const RegisterRescuer({super.key});
 
@@ -24,6 +25,7 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
   String _countryCode = '+97';
   bool _isConfirmPasswordVisible = false;
   bool _isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +45,10 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                 Opacity(
                   opacity: 0.5,
                   child: Container(
-                    child: Image.asset('assets/images/rescue.jpeg',
-                      fit: BoxFit.fitWidth,),
+                    child: Image.asset(
+                      'assets/images/rescue.jpeg',
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
                 Row(
@@ -81,10 +85,8 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                   ],
                 ),
                 const SizedBox(height: 16),
-
-                // 2. Password
                 TextFormField(
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'كلمة المرور',
                     border: OutlineInputBorder(),
                     suffixIcon: IconButton(
@@ -111,10 +113,8 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                   onChanged: (value) => _password = value,
                 ),
                 const SizedBox(height: 16),
-
-                // 3. Confirm Password
                 TextFormField(
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'تآكيد كلمة المرور',
                     border: OutlineInputBorder(),
                     suffixIcon: IconButton(
@@ -125,7 +125,8 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                       ),
                       onPressed: () {
                         setState(() {
-                          _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                          _isConfirmPasswordVisible =
+                              !_isConfirmPasswordVisible;
                         });
                       },
                     ),
@@ -143,8 +144,6 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                   onSaved: (value) => _confirmPassword = value,
                 ),
                 const SizedBox(height: 16),
-
-                // 4. User Name
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'اسم المسعف',
@@ -159,7 +158,6 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                   onSaved: (value) => _rescuerName = value,
                 ),
                 const SizedBox(height: 16),
-
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: ' مكان العمل',
@@ -187,13 +185,11 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                   },
                   onSaved: (value) => _rescuerGovernorate = value,
                 ),
-
                 const SizedBox(height: 24),
                 Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
-                      // Navigate to login screen
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -212,25 +208,26 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
-                  // To control the button's width
                     width: double.infinity,
                     height: 60,
-                    // Submit Button
                     child: RoundedCornerButton(
                       text: 'تسجيل',
                       color: Colors.red,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          SharedPreferencesHelper.saveBool(SharedPreferencesHelper.USER_LOGGED_IN, true);
-                          SharedPreferencesHelper.saveInt(SharedPreferencesHelper.USER_TYPE, UserType.Rescuer.value);
+                          SharedPreferencesHelper.saveBool(
+                              SharedPreferencesHelper.USER_LOGGED_IN, true);
+                          SharedPreferencesHelper.saveInt(
+                              SharedPreferencesHelper.USER_TYPE,
+                              UserType.Rescuer.value);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BottomNavScreen(userType: UserType.Rescuer)),
-                                (Route<dynamic> route) => false,
+                                builder: (context) => BottomNavScreen(
+                                    userType: UserType.Rescuer)),
+                            (Route<dynamic> route) => false,
                           );
-
                         }
                       },
                     ))

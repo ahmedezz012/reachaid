@@ -75,7 +75,6 @@ class _RegisterVictimState extends State<RegisterVictim> {
                   },
                   onSaved: (value) => _victimAge = int.tryParse(value!),
                 ),
-                // 4. User Name
 
                 const SizedBox(height: 16),
 
@@ -163,10 +162,8 @@ class _RegisterVictimState extends State<RegisterVictim> {
 
                 const SizedBox(height: 24),
                 SizedBox(
-                    // To control the button's width
                     width: double.infinity,
                     height: 60,
-                    // Submit Button
                     child: RoundedCornerButton(
                       text: 'التالي',
                       color: Colors.red,
@@ -183,7 +180,6 @@ class _RegisterVictimState extends State<RegisterVictim> {
                                       const HealthInputScreen()),
                             );
                           }
-                          // Process the registration data
                         }
                       },
                     ))

@@ -42,7 +42,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // 1. Mobile Number
                 Row(
                   children: [
                     CountryCodePicker(
@@ -77,10 +76,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                   ],
                 ),
                 const SizedBox(height: 16),
-
-                // 2. Password
                 TextFormField(
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'كلمة المرور',
                     border: OutlineInputBorder(),
                     suffixIcon: IconButton(
@@ -107,8 +104,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                   onChanged: (value) => _password = value,
                 ),
                 const SizedBox(height: 16),
-
-                // 3. Confirm Password
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'تآكيد كلمة المرور',
@@ -121,7 +116,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                          _isConfirmPasswordVisible =
+                              !_isConfirmPasswordVisible;
                         });
                       },
                     ),
@@ -139,8 +135,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                   onSaved: (value) => _confirmPassword = value,
                 ),
                 const SizedBox(height: 16),
-
-                // 4. User Name
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'اسم المستخدم',
@@ -155,8 +149,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                   onSaved: (value) => _userName = value,
                 ),
                 const SizedBox(height: 16),
-
-                // 5. User Age
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'عمر المستخدم',
@@ -175,8 +167,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                   onSaved: (value) => _userAge = int.tryParse(value!),
                 ),
                 const SizedBox(height: 16),
-
-                // 6. Gender (Radio Buttons)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -208,8 +198,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                   ],
                 ),
                 const SizedBox(height: 16),
-
-                // 7. Medical History (Multiline)
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'مشاكل صحية يعاني منها المستخدم',
@@ -224,16 +212,11 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
-                      // Navigate to login screen
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const LoginUserScreen()),
-                      ); // If login is the previous screen
-                      // Or use Navigator.pushNamed if you have named routes
-                      // Navigator.pushNamed(context, '/login');
-                      // Or Navigator.pushReplacement for a specific login screen
-                      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                      );
                     },
                     child: Text(
                       'لديك حساب بالفعل؟ تسجيل دخول',
@@ -247,32 +230,33 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
-                    // To control the button's width
                     width: double.infinity,
                     height: 60,
-                    // Submit Button
                     child: RoundedCornerButton(
                       text: 'تسجيل',
                       color: Colors.red,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          SharedPreferencesHelper.saveBool(SharedPreferencesHelper.USER_LOGGED_IN, true);
-                          SharedPreferencesHelper.saveInt(SharedPreferencesHelper.USER_TYPE, UserType.User.value);
+                          SharedPreferencesHelper.saveBool(
+                              SharedPreferencesHelper.USER_LOGGED_IN, true);
+                          SharedPreferencesHelper.saveInt(
+                              SharedPreferencesHelper.USER_TYPE,
+                              UserType.User.value);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const BottomNavScreen(userType: UserType.User,)),
+                                builder: (context) => const BottomNavScreen(
+                                      userType: UserType.User,
+                                    )),
                             (Route<dynamic> route) => false,
                           );
-                          // Process the registration data
                           print('Mobile Number: $_countryCode $_mobileNumber');
                           print('Password: $_password');
                           print('User Name: $_userName');
                           print('User Age: $_userAge');
                           print('Gender: $_gender');
                           print('Medical History: $_medicalHistory');
-                          // You would typically send this data to your backend
                         }
                       },
                     ))

@@ -17,7 +17,6 @@ class VictimStatusScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              // To control the button's width
                 width: double.infinity,
                 height: 60,
                 child: RoundedCornerButton(
@@ -36,7 +35,6 @@ class VictimStatusScreen extends StatelessWidget {
       ),
         const SizedBox(height: 24),
         SizedBox(
-          // To control the button's width
           width: double.infinity,
           height: 60,
           child:

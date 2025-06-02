@@ -35,7 +35,6 @@ class _LoginUserScreenState extends State<LoginUserScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // 1. Mobile Number
                 Row(
                   children: [
                     CountryCodePicker(
@@ -71,7 +70,6 @@ class _LoginUserScreenState extends State<LoginUserScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // 2. Password
                 TextFormField(
                   decoration:  InputDecoration(
                     labelText: 'كلمة المرور',
@@ -100,13 +98,10 @@ class _LoginUserScreenState extends State<LoginUserScreen> {
                   onChanged: (value) => _password = value,
                 ),
 
-                // 3. Confirm Password
                 const SizedBox(height: 24),
                 SizedBox(
-                  // To control the button's width
                     width: double.infinity,
                     height: 60,
-                    // Submit Button
                     child: RoundedCornerButton(
                       text: 'تسجيل الدخول',
                       color: Colors.red,
@@ -121,10 +116,8 @@ class _LoginUserScreenState extends State<LoginUserScreen> {
                                 builder: (context) => const BottomNavScreen(userType: UserType.User,)),
                                 (Route<dynamic> route) => false,
                           );
-                          // Process the registration data
                           print('Mobile Number: $_countryCode $_mobileNumber');
                           print('Password: $_password');
-                          // You would typically send this data to your backend
                         }
                       },
                     ))

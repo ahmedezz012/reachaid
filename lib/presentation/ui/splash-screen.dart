@@ -67,11 +67,8 @@ class SplashScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 70, 50, 0),
-              // Add some padding around the button
               child: SizedBox(
-                // To control the button's width
                   width: double.infinity,
-                  // Makes the button take the full width
                   height: 60,
                   child: RoundedCornerButton(
                     text: 'تسجيل الدخول',
