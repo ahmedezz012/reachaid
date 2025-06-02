@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:reachaid/presentation/ui/health_input_screen.dart';
+import 'package:reachaid/presentation/ui/victim-status.dart';
 import 'package:reachaid/victim-health-state.dart';
 import '../components/rounded-corner-button.dart';
 import 'package:reachaid/victim-gender.dart';
+
 class RegisterVictim extends StatefulWidget {
   const RegisterVictim({super.key});
 
@@ -19,6 +21,7 @@ class _RegisterVictimState extends State<RegisterVictim> {
   int? _victimAge;
   VictimGender? _gender;
   VictimHealthState? _healthState;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +37,10 @@ class _RegisterVictimState extends State<RegisterVictim> {
                 Opacity(
                   opacity: 1.0,
                   child: Container(
-                    child: Image.asset('assets/images/register-victim.jpeg',
-                      fit: BoxFit.fitWidth,),
+                    child: Image.asset(
+                      'assets/images/register-victim.jpeg',
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -158,7 +163,7 @@ class _RegisterVictimState extends State<RegisterVictim> {
 
                 const SizedBox(height: 24),
                 SizedBox(
-                  // To control the button's width
+                    // To control the button's width
                     width: double.infinity,
                     height: 60,
                     // Submit Button
@@ -168,10 +173,20 @@ class _RegisterVictimState extends State<RegisterVictim> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const HealthInputScreen()),
-                          );
+                          if (_healthState == VictimHealthState.Dead) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => VictimStatusScreen()),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const HealthInputScreen()),
+                            );
+                          }
                           // Process the registration data
                         }
                       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reachaid/presentation/ui/victim-status.dart';
 
 import '../components/rounded-corner-button.dart';
 
@@ -28,29 +29,12 @@ class _HealthInputScreenState extends State<HealthInputScreen> {
     super.dispose();
   }
 
-  void _submit() {
-    if (_formKey.currentState?.validate() ?? false) {
-      final bpMax = _bloodPressureMaxController.text;
-      final bpMin = _bloodPressureMinController.text;
-      final hr = _heartRateController.text;
-      final br = _breathingRateController.text;
-      final temp = _temperatureController.text;
-
-      // For now, just print the values
-      print('Blood Pressure max: $bpMax');
-      print('Blood Pressure min: $bpMin');
-      print('Heart Rate: $hr');
-      print('Breathing Rate: $br');
-      print('Temperature: $temp');
-
-      // You can pass this data to your backend or local storage here
-    }
-  }
 
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
     required String unit,
+    required String? Function(String?)? validator,
   }) {
     return TextFormField(
       controller: controller,
@@ -59,6 +43,7 @@ class _HealthInputScreenState extends State<HealthInputScreen> {
         labelText: '$label ($unit)',
         border: OutlineInputBorder(),
       ),
+      validator: validator,
     );
   }
 
@@ -76,30 +61,60 @@ class _HealthInputScreenState extends State<HealthInputScreen> {
                 controller: _bloodPressureMinController,
                 label: 'ضغط الدم الانبساطي',
                 unit: 'mmHg',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'يجب ادخال قيمة';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 12),
               _buildTextField(
                 controller: _bloodPressureMaxController,
                 label: 'ضغط الدم الانقباضي',
                 unit: 'mmHg',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'يجب ادخال قيمة';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 12),
               _buildTextField(
                 controller: _heartRateController,
                 label: 'ضربات القلب',
                 unit: 'bpm',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'يجب ادخال قيمة';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 12),
               _buildTextField(
                 controller: _breathingRateController,
                 label: 'التنفس',
                 unit: 'breaths/min',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'يجب ادخال قيمة';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 12),
               _buildTextField(
                 controller: _temperatureController,
                 label: 'درجة الحرارة',
                 unit: '°C',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'يجب ادخال قيمة';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -113,6 +128,10 @@ class _HealthInputScreenState extends State<HealthInputScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  VictimStatusScreen()),
+                        );
                         // You would typically send this data to your backend
                       }
                     },

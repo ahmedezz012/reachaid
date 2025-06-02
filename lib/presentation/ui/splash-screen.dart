@@ -32,7 +32,7 @@ class _SplashNavigatorPageState extends State<SplashNavigatorPage> {
   @override
   Widget build(BuildContext context) {
     if (isLoggedIn == null || userType == null) {
-      return const Center(child: CircularProgressIndicator());
+      return const SplashScreen();
     }
 
     if (isLoggedIn == true) {

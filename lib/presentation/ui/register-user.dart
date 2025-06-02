@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:reachaid/data/shared-preferences/shared-preferences-helper.dart';
+import 'package:reachaid/presentation/ui/login-user.dart';
 import 'package:reachaid/user-type.dart';
 import 'bottom-nav-screen.dart';
 import '../components/rounded-corner-button.dart';
@@ -22,6 +23,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
   String? _gender;
   String? _medicalHistory;
   String _countryCode = '+97';
+  bool _isConfirmPasswordVisible = false;
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +80,23 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
 
                 // 2. Password
                 TextFormField(
-                  decoration: const InputDecoration(
+                  decoration:  InputDecoration(
                     labelText: 'كلمة المرور',
                     border: OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
+                  obscureText: _isPasswordVisible == false,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'يجب ادخال كلمة المرور';
@@ -95,11 +110,23 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
 
                 // 3. Confirm Password
                 TextFormField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'تآكيد كلمة المرور',
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isConfirmPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
+                  obscureText: _isConfirmPasswordVisible == false,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'يجب ادخال تآكيد كلمة المرور';
@@ -191,6 +218,32 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                   maxLines: 5,
                   keyboardType: TextInputType.multiline,
                   onSaved: (value) => _medicalHistory = value,
+                ),
+                const SizedBox(height: 24),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      // Navigate to login screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginUserScreen()),
+                      ); // If login is the previous screen
+                      // Or use Navigator.pushNamed if you have named routes
+                      // Navigator.pushNamed(context, '/login');
+                      // Or Navigator.pushReplacement for a specific login screen
+                      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                    },
+                    child: Text(
+                      'لديك حساب بالفعل؟ تسجيل دخول',
+                      style: TextStyle(
+                        color: Colors.red,
+                        decoration: TextDecoration.underline,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 SizedBox(

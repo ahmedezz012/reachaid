@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:reachaid/presentation/ui/login-rescuer.dart';
 import 'package:reachaid/user-type.dart';
 import '../../data/shared-preferences/shared-preferences-helper.dart';
 import '../components/rounded-corner-button.dart';
 import 'bottom-nav-screen.dart';
-class RegisterRescuer extends StatefulWidget {
-  const RegisterRescuer({super.key});
+
+
+class LoginRescuer extends StatefulWidget {
+  const LoginRescuer({super.key});
 
   @override
-  State<RegisterRescuer> createState() => _RegisterRescuerState();
+  State<LoginRescuer> createState() => _LoginRescuerState();
 }
 
-class _RegisterRescuerState extends State<RegisterRescuer> {
+class _LoginRescuerState extends State<LoginRescuer> {
   final _formKey = GlobalKey<FormState>();
   String? _mobileNumber;
   String? _password;
-  String? _confirmPassword;
-  String? _rescuerName;
-  int? _userAge;
-  String? _rescuerPlace;
-  String? _rescuerGovernorate;
   String _countryCode = '+97';
-  bool _isConfirmPasswordVisible = false;
   bool _isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -112,104 +107,7 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                 ),
                 const SizedBox(height: 16),
 
-                // 3. Confirm Password
-                TextFormField(
-                  decoration:  InputDecoration(
-                    labelText: 'تآكيد كلمة المرور',
-                    border: OutlineInputBorder(),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isConfirmPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                        });
-                      },
-                    ),
-                  ),
-                  obscureText: _isConfirmPasswordVisible == false,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'يجب ادخال تآكيد كلمة المرور';
-                    }
-                    if (value != _password) {
-                      return 'كلمة المرور و تآكيد كلمة المرور غير متطابقين';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _confirmPassword = value,
-                ),
-                const SizedBox(height: 16),
 
-                // 4. User Name
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'اسم المسعف',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'يجب ادخال اسم المسعف';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _rescuerName = value,
-                ),
-                const SizedBox(height: 16),
-
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: ' مكان العمل',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'يجب ادخال مكان العمل';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _rescuerPlace = value,
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'محافظة العمل',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'يجب ادخال محافظة العمل';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _rescuerGovernorate = value,
-                ),
-
-                const SizedBox(height: 24),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      // Navigate to login screen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginRescuer()),
-                      );
-                    },
-                    child: Text(
-                      'لديك حساب بالفعل؟ تسجيل دخول',
-                      style: TextStyle(
-                        color: Colors.red,
-                        decoration: TextDecoration.underline,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 24),
                 SizedBox(
                   // To control the button's width
@@ -230,7 +128,8 @@ class _RegisterRescuerState extends State<RegisterRescuer> {
                                 builder: (context) => BottomNavScreen(userType: UserType.Rescuer)),
                                 (Route<dynamic> route) => false,
                           );
-
+                          // Process the registration data
+                          // You would typically send this data to your backend
                         }
                       },
                     ))
